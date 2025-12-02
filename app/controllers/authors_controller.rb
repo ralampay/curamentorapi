@@ -27,6 +27,10 @@ class AuthorsController < AuthenticatedController
     render json: { message: "ok" }
   end
 
+  def index
+    render json: @publication.authors.map { |author| author.to_h }
+  end
+
   private
 
   def load_publication!
