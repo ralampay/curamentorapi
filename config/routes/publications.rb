@@ -1,0 +1,5 @@
+get "/publications", to: "publications#index"
+get "/publications/:id", to: "publications#show"
+post "/publications", to: "publications#create"
+put "/publications/:id", to: "publications#update"
+delete "/publications/:id", to: "publications#delete"

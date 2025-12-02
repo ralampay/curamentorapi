@@ -1,0 +1,5 @@
+get "/courses", to: "courses#index"
+get "/courses/:id", to: "courses#show"
+post "/courses", to: "courses#create"
+put "/courses/:id", to: "courses#update"
+delete "/courses/:id", to: "courses#delete"

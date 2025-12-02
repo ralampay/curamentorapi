@@ -16,6 +16,7 @@ class Validator
   end
 
   def count_errors!
+    @num_errors = 0
     @payload.each do |key, errs|
       if errs.length > 0 and errs[0].class == String
         @num_errors += errs.length

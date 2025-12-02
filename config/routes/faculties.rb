@@ -1,0 +1,5 @@
+get "/faculties", to: "faculties#index"
+get "/faculties/:id", to: "faculties#show"
+post "/faculties", to: "faculties#create"
+put "/faculties/:id", to: "faculties#update"
+delete "/faculties/:id", to: "faculties#delete"
