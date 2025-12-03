@@ -20,6 +20,12 @@ class Publication < ApplicationRecord
     }
   end
 
+  def downloadable_files
+    return [] unless file.attached?
+
+    [file_url]
+  end
+
   def purge_attached_file
     file.purge_later if file.attached?
   end
