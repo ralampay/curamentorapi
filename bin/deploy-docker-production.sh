@@ -57,7 +57,7 @@ docker run -d \
   --restart unless-stopped \
   --add-host=host.docker.internal:host-gateway \
   --env-file .env.production \
-  -p 127.0.0.1:3000:3000 \
+  -p 127.0.0.1:8080:3000 \
   ${CONTAINER_NAME}:latest
 
 echo "Restarting nginx..."
