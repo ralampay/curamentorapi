@@ -13,11 +13,16 @@ class Publication < ApplicationRecord
       title: title,
       date_published: date_published,
       file_attached: file.attached?,
-      file_name: file.attached? ? file.filename.to_s : nil
+      file_name: file.attached? ? file.filename.to_s : nil,
+      file_url: file_url
     }
   end
 
   private
+
+  def default_host
+    ENV.fetch('APP_HOST') { 'http://localhost:3000' }
+  end
 
   def file_type_and_size
     return unless file.attached?
@@ -29,5 +34,14 @@ class Publication < ApplicationRecord
     if file.blob.byte_size > 10.megabytes
       errors.add(:file, 'is too big (maximum is 10 MB)')
     end
+  end
+
+  def file_url
+    return unless file.attached?
+
+    Rails.application.routes.url_helpers.rails_blob_url(
+      file,
+      host: default_host
+    )
   end
 end
