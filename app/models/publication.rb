@@ -2,6 +2,8 @@ class Publication < ApplicationRecord
   has_one_attached :file
   has_many :authors, dependent: :destroy
 
+  after_destroy_commit :purge_attached_file
+
   validates :title, presence: true
   validates :date_published, presence: true
 
@@ -16,6 +18,10 @@ class Publication < ApplicationRecord
       file_name: file.attached? ? file.filename.to_s : nil,
       file_url: file_url
     }
+  end
+
+  def purge_attached_file
+    file.purge_later if file.attached?
   end
 
   private
