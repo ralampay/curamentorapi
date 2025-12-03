@@ -2,7 +2,7 @@ class PublicationsController < AuthenticatedController
   include ApiHelpers
   before_action :authorize_active!
 
-  before_action :load_resource!, only: [:show, :update, :delete]
+  before_action :load_resource!, only: [:show, :update, :delete, :vectorize]
 
   def index
     publications = Publication.order("title ASC")
@@ -60,6 +60,18 @@ class PublicationsController < AuthenticatedController
     @publication.destroy!
 
     render json: { message: "ok" }
+  end
+
+  def vectorize
+    payload = ::System::PostPublicationPayload.new(publication: @publication).build
+    cmd = ::System::SendSqsPayload.new(payload: payload)
+
+    cmd.execute!
+
+    render json: {
+      message: "queued",
+      message_id: cmd.message_id
+    }
   end
 
   private

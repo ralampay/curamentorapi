@@ -16,6 +16,7 @@ Copy `.dotenv.env` to `.env`
 * `DB_PASSWORD`: Database password
 * `DB_HOST`: Host location of database
 * `DB_PORT`: Port of PostgreSQL
+* `AWS_SQS_VECTORIZE_QUEUE`: URL of the FIFO queue used for publication vectorization
 
 ## Other Commands
 
