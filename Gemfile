@@ -13,6 +13,7 @@ gem "rack-cors"
 gem "dotenv-rails"
 gem "kaminari"
 gem "aws-sdk-sqs"
+gem "ruby_llm"
 
 group :test do
   gem "rspec-rails"
