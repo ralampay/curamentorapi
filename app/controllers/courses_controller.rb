@@ -2,7 +2,7 @@ class CoursesController < AuthenticatedController
   include ApiHelpers
   before_action :authorize_active!
 
-  before_action :load_resource!, only: [:show, :update, :delete]
+  before_action :load_resource!, only: [:show, :update, :delete, :students]
 
   def index
     courses = Course.order("name ASC")
@@ -23,6 +23,10 @@ class CoursesController < AuthenticatedController
 
   def show
     render json: @course.to_h
+  end
+
+  def students
+    render json: @course.students.map { |student| student.to_h }
   end
 
   def create

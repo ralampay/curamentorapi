@@ -1,5 +1,6 @@
 require 'rails_helper'
 require 'ostruct'
+require 'aws-sdk-sqs'
 
 RSpec.describe 'Publications vectorize' do
   include ApiHelpers

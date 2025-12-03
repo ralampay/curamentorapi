@@ -1,10 +1,19 @@
 module System
-  class PostPublicationPayload
-    attr_reader :publication
+  class PostPublicationSqsPayload
+    attr_reader :publication, :command
 
     def initialize(publication:)
       @publication = publication
     end
+
+    def execute!
+      @command ||= ::System::SendSqsPayload.new(payload: build)
+      @command.execute!
+
+      @command
+    end
+
+    private
 
     def build
       {

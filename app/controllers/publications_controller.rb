@@ -63,10 +63,7 @@ class PublicationsController < AuthenticatedController
   end
 
   def vectorize
-    payload = ::System::PostPublicationPayload.new(publication: @publication).build
-    cmd = ::System::SendSqsPayload.new(payload: payload)
-
-    cmd.execute!
+    cmd = ::System::PostPublicationSqsPayload.new(publication: @publication).execute!
 
     render json: {
       message: "queued",

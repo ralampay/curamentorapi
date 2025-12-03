@@ -12,6 +12,7 @@ gem "thruster", require: false
 gem "rack-cors"
 gem "dotenv-rails"
 gem "kaminari"
+gem "aws-sdk-sqs"
 
 group :test do
   gem "rspec-rails"
