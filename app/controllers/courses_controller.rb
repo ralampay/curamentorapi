@@ -6,7 +6,9 @@ class CoursesController < AuthenticatedController
 
   def index
     courses = Course.order("name ASC")
+    courses = filter_courses(courses)
     courses = courses.page(params[:page]).per(params[:per_page] || ITEMS_PER_PAGE)
+
 
     records = courses.map { |course| course.to_h }
 
@@ -68,5 +70,12 @@ class CoursesController < AuthenticatedController
     if @course.blank?
       render json: { message: 'not found' }, status: :not_found
     end
+  end
+
+  def filter_courses(scope)
+    return scope if params[:q].blank?
+
+    term = "%#{params[:q]}%"
+    scope.where("name ILIKE ? OR code ILIKE ?", term, term)
   end
 end

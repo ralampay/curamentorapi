@@ -6,6 +6,7 @@ class StudentsController < AuthenticatedController
 
   def index
     students = Student.order("last_name ASC")
+    students = filter_students(students)
     students = students.page(params[:page]).per(params[:per_page] || ITEMS_PER_PAGE)
 
     records = students.map { |student| student.to_h }
@@ -76,5 +77,12 @@ class StudentsController < AuthenticatedController
     if @student.blank?
       render json: { message: 'not found' }, status: :not_found
     end
+  end
+
+  def filter_students(scope)
+    return scope if params[:q].blank?
+
+    term = "%#{params[:q]}%"
+    scope.where("first_name ILIKE ? OR middle_name ILIKE ? OR last_name ILIKE ?", term, term, term)
   end
 end

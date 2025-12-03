@@ -21,6 +21,19 @@ RSpec.describe 'Courses index' do
 
         expect(response).to have_http_status(:ok)
       end
+
+      it 'filters courses by query' do
+        course = FactoryBot.create(:course, name: "Physics 101", code: "PHY101")
+        FactoryBot.create(:course, name: "Biology 101", code: "BIO101")
+
+        get api_url, params: { q: 'Physics' }, headers: user_headers
+
+        expect(response).to have_http_status(:ok)
+        payload = JSON.parse(response.body)
+
+        expect(payload['records'].size).to eq(1)
+        expect(payload['records'][0]['id']).to eq(course.id)
+      end
     end
   end
 end

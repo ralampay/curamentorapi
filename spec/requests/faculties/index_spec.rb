@@ -21,6 +21,18 @@ RSpec.describe 'Faculties index' do
 
         expect(response).to have_http_status(:ok)
       end
+
+      it 'filters faculties by query' do
+        faculty = FactoryBot.create(:faculty, first_name: "Carol", last_name: "Lee")
+        FactoryBot.create(:faculty, first_name: "David", last_name: "Brown")
+
+        get api_url, params: { q: 'Lee' }, headers: user_headers
+
+        expect(response).to have_http_status(:ok)
+        payload = JSON.parse(response.body)
+
+        expect(payload['records'].map { |r| r['id'] }).to eq([faculty.id])
+      end
     end
   end
 end

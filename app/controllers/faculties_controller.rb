@@ -6,6 +6,7 @@ class FacultiesController < AuthenticatedController
 
   def index
     faculties = Faculty.order("last_name ASC")
+    faculties = filter_faculties(faculties)
     faculties = faculties.page(params[:page]).per(params[:per_page] || ITEMS_PER_PAGE)
 
     records = faculties.map { |faculty| faculty.to_h }
@@ -72,5 +73,12 @@ class FacultiesController < AuthenticatedController
     if @faculty.blank?
       render json: { message: 'not found' }, status: :not_found
     end
+  end
+
+  def filter_faculties(scope)
+    return scope if params[:q].blank?
+
+    term = "%#{params[:q]}%"
+    scope.where("first_name ILIKE ? OR middle_name ILIKE ? OR last_name ILIKE ?", term, term, term)
   end
 end
