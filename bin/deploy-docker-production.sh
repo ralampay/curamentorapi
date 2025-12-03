@@ -25,6 +25,15 @@ docker build \
   --no-cache \
   .
 
+echo "Creating production database..."
+
+docker run --rm \
+  --name ${CONTAINER_NAME}-dbcreate \
+  --add-host=host.docker.internal:host-gateway \
+  --env-file .env.production \
+  ${CONTAINER_NAME}:latest \
+  bash -lc 'bundle exec rails db:create RAILS_ENV=production'
+
 echo "Migrating schema to production database..."
 
 docker run --rm \
