@@ -16,13 +16,13 @@ gem "aws-sdk-sqs"
 gem "aws-sdk-s3"
 gem "ruby_llm"
 gem "pgvector"
+gem "factory_bot_rails"
 
 group :test do
   gem "rspec-rails"
 end
 
 group :development, :test do
-  gem "factory_bot_rails"
   gem "faker"
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
   gem "brakeman", require: false
