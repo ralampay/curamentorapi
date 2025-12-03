@@ -20,7 +20,8 @@ module System
         publication_id: publication.id,
         title: publication.title,
         date_published: publication.date_published,
-        file_attached: publication.file.attached?
+        file_attached: publication.file.attached?,
+        key: publication.file.attached? ? publication.file.blob.key : nil
       }
     end
   end

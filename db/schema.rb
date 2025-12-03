@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_02_171630) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_03_073515) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
+  enable_extension "vector"
 
   create_table "active_storage_attachments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "blob_id", null: false
@@ -69,6 +70,10 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_02_171630) do
     t.string "middle_name"
     t.datetime "updated_at", null: false
   end
+
+# Could not dump table "publication_vectors" because of following StandardError
+#   Unknown type 'vector' for column 'vector'
+
 
   create_table "publications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -244,6 +249,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_02_171630) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "authors", "publications"
+  add_foreign_key "publication_vectors", "publications"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_failed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
