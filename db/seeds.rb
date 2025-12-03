@@ -7,3 +7,9 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+FactoryBot.create(
+  :user,
+  email: "admin@example.com",
+  first_name: "Admin",
+  last_name: "Example"
+)
