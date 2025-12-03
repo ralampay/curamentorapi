@@ -15,6 +15,7 @@ gem "kaminari"
 gem "aws-sdk-sqs"
 gem "aws-sdk-s3"
 gem "ruby_llm"
+gem "pgvector"
 
 group :test do
   gem "rspec-rails"
