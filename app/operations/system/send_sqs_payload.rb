@@ -34,7 +34,7 @@ module System
     def sqs_config
       region            = ENV.fetch('AWS_REGION', 'ap-southeast-1')
       access_key_id     = ENV.fetch('AWS_ACCESS_KEY_ID', 'test')
-      secret_access_key = ENV.fetch('AWS_SECRET_ACCESS_KEY_ID', 'test')
+      secret_access_key = ENV.fetch('AWS_SECRET_ACCESS_KEY', 'test')
 
       base = {
         region: region,
